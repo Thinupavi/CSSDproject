@@ -5,6 +5,7 @@
  */
 package smartcityapp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observer;
 
@@ -12,57 +13,69 @@ import java.util.Observer;
  *
  * @author USER
  */
-public class SensorStations implements Subject {
+public class SensorStations implements Subject,Serializable {
     
     private ArrayList observers;
-    private String SensorDescription;
-    private Float CurrentData;
-    private String Status;
-    private Float Frequency;
-    
-    
-    public void SetSensorStations(String SensorDescription,Float CurrentData,String Status,Float Frequency)
-    {
-        this.SensorDescription = SensorDescription;
-        this.CurrentData = CurrentData;
-        this.Status = Status;
-        this.Frequency = Frequency;
-        measurementschanged();
-    }
+    private ArrayList allsensormonitors;
+    private String StationID;
+    private String Address;
+    private Float NoofSensors;
+    private Float Lattitude;
+    private Float Longitude;
 
+    
+     public SensorStations(String StationID, String Address, Float NoofSensors, Float Lattitude, Float Longitude) {
+        this.StationID = StationID;
+        this.Address = Address;
+        this.NoofSensors = NoofSensors;
+        this.Lattitude = Lattitude;
+        this.Longitude = Longitude;
+    }
+     
     public SensorStations(){
         observers = new ArrayList();
+        allsensormonitors = new ArrayList();
     }
-    public String getSensorDescription(){
-        return SensorDescription;
+
+    public String getStationID() {
+        return StationID;
+    }
+
+    public void setStationID(String StationID) {
+        this.StationID = StationID;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String Address) {
+        this.Address = Address;
+    }
+      
+    
+     public Float getNoofSensors(){
+        return NoofSensors;
     }
     
-    public void setSensorDescription(String s){
-        SensorDescription =  s;
-    }
-    
-     public Float getCurrentData(){
-        return CurrentData;
-    }
-    
-    public void setCurrentData(Float c){
-        CurrentData =  c;
+    public void setNoofSensors(Float c){
+        NoofSensors =  c;
     } 
     
-    public String getStatus(){
-        return Status;
+    public Float getLattitude(){
+        return Lattitude;
     }
     
-    public void setStatus(String Sa){
-        Status =  Sa;
+    public void setLattitude(Float Sa){
+        Lattitude =  Sa;
     }
     
-    public Float getFrequency(){
-        return Frequency;
+    public Float getLongitude(){
+        return Longitude;
     }
     
-    public void setFrequency(Float f){
-        Frequency =  f;
+    public void setLongitude(Float f){
+        Longitude =  f;
     } 
     
     @Override
@@ -84,12 +97,32 @@ public class SensorStations implements Subject {
            for(int i = 0 ;i<observers.size();i++)
            {
                Observer observer = (Observer)observers.get(i);
-               observer.update(SensorDescription,CurrentData,Status,Frequency);
+//               observer.update (this);
            }
     }
+//    
+//    public void measurementschanged(){
+//        notifyObservers();
+//    }
+//    
     
-    public void measurementschanged(){
-        notifyObservers();
+    public String toString()
+    {
+        return StationID + " ~ " +Address + " ~ " + NoofSensors + " ~ " + Lattitude + " ~ " +Longitude;
+    }
+     
+    public ArrayList<SensorStations>getState()
+    {
+        return allsensormonitors;
     }
     
+    public void addSensorStations(SensorStations sensorstations){
+        
+        allsensormonitors.add(sensorstations);
+    }
+
+    @Override
+    public Object getUpdate(Observer o) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

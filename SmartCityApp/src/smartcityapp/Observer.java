@@ -11,6 +11,10 @@ package smartcityapp;
  */
 public interface Observer {
     
-    public void update (String SensorDescription,Float CurrentData,String Status,Float Frequency);
+    //method to update the observer, used by subject
+    public void update (String Sensors,Float MoofSensors,Float Lattitude,Float Longitude);
+    
+    //attach with subject to observe
+    public void setSubject(Subject sub);
     
 }
