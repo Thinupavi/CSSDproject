@@ -29,20 +29,20 @@ public class SensorStationGUI extends javax.swing.JFrame {
         hideFilterBtn(btnResetSenstaionsFilter);
         
         // set to true for data-refresh
-        File members = new File("Files/SensorStation.ser");
+        File stations = new File("Files/SensorStation.ser");
         
-        if (!members.exists()){
+        if (!stations.exists()){
             File f = new File("Files/");
             if(!f.exists())
                 f.mkdir();
             
             resetData();
         }else{
-            deserializeMembersSet("Files/SensorStation.ser");
+            deserializeStationsSet("Files/SensorStation.ser");
         }
         
         setGUITxt();
-        refreshMembersJList(null);
+        refreshStationsJList(null);
         
         // initially set to true until everything is loaded in
         changesSaved = true;
@@ -64,28 +64,28 @@ public class SensorStationGUI extends javax.swing.JFrame {
     
     
     private void filterStations(){
-        SetOfSensorStations filtMems = new SetOfSensorStations();
-        //clear selectedMember before begining
+        SetOfSensorStations filStations = new SetOfSensorStations();
+        //clear selectedStation before begining
         clearSelectedStation();
         if(jComboStationFilter.getSelectedIndex() == 0){
-            // if combo box is 0, member is searching by ID
+            // if combo box is 0, Station is searching by ID
             try{
-                filtMems = theStations.getSensorStationsFromSearch(parseInt(jTxtStationSearchInput.getText()));
+                filStations = theStations.getSensorStationsFromSearch(parseInt(jTxtStationSearchInput.getText()));
             }catch(Exception e){
                 // do something here
             }
         }
         else 
         {
-            // if combo box is 1, member is searching by Name
+            // if combo box is 1, Station is searching by Station Name
             try{
-                filtMems = theStations.getSensorStationsnameFromSearch(jTxtStationSearchInput.getText());
+                filStations = theStations.getSensorStationsnameFromSearch(jTxtStationSearchInput.getText());
             }catch(Exception e){
                 // do something here
             }
         }
-        if (!filtMems.isEmpty()){
-            refreshMembersJList(filtMems);
+        if (!filStations.isEmpty()){
+            refreshStationsJList(filStations);
             btnResetSenstaionsFilter.setVisible(true);
             setGUITxt();
         }else{
@@ -102,6 +102,7 @@ public class SensorStationGUI extends javax.swing.JFrame {
         jDialogDelConf.setModalityType(APPLICATION_MODAL); 
         jDialogCRUDMemForm.setModalityType(APPLICATION_MODAL); 
         jDialogStationSearch.setModalityType(APPLICATION_MODAL);
+        jDialogViewStations.setModalityType(APPLICATION_MODAL);
     }
     
     private void hideFilterBtn(JButton filterBtn){
@@ -120,13 +121,13 @@ public class SensorStationGUI extends javax.swing.JFrame {
         lblNoStaionsQResultsTxt.setVisible(false);
         lblChangesSaved.setVisible(false);
         changesSaved = false;
-        // sets member/book count on main GUI
+        // sets Station count on main GUI
         lblMainStationCnt.setText(String.valueOf(theStations.size()));
     }
     
     private void saveAll(){
         clearSelectedStation();
-        serializeMembersSet("Files/SensorStation.ser");
+        serializeStationsSet("Files/SensorStation.ser");
         showChangesSaved();
     }
     
@@ -162,6 +163,7 @@ public class SensorStationGUI extends javax.swing.JFrame {
         if (reason == "new"){
             jTxtStationIDInput.setText(Integer.toString(
                     theStations.lastElement().getStationID()+1));
+            jTxtNASensors.setEnabled(false);
             btnStationFormApply.setText("Add");
         }else{
             jTxtStationIDInput.setText(String.valueOf(
@@ -172,7 +174,7 @@ public class SensorStationGUI extends javax.swing.JFrame {
             jTxtLongtitude.setText(String.valueOf(selectedStations.getLongitude()));
             
             if(reason == "edit"){
-                btnStationFormApply.setText("Save");
+            btnStationFormApply.setText("Save");
             jTxtStationNameInput.setEnabled(false);
             jTxtLattitude.setEnabled(false);
             jTxtLongtitude.setEnabled(false);
@@ -181,13 +183,14 @@ public class SensorStationGUI extends javax.swing.JFrame {
                 btnStationFormApply.setText("Delete");
                 jTxtStationNameInput.setEnabled(false);
                 jTxtLattitude.setEnabled(false);
+                jTxtNASensors.setEnabled(false);
                 jTxtLongtitude.setEnabled(false);
             
             }
         }
         jDialogCRUDMemForm.setVisible(true);
     } 
-    private void refreshMembersJList(SetOfSensorStations filtMembers){
+    private void refreshStationsJList(SetOfSensorStations filtMembers){
         if (filtMembers == null){
             jListSensorstations.setListData(theStations);
         }else{
@@ -198,12 +201,12 @@ public class SensorStationGUI extends javax.swing.JFrame {
     
     
     private void setSelectedStation(){
-        // Get value from jlist (SetOfMembers) and cast to member
+        // Get value from jlist (SetOfStations) and cast to Stations
         selectedStations = (SensorStations)jListSensorstations.getSelectedValue();
         btnEditSenStations.setEnabled(true);
         
-            btnDelSenStaions.setEnabled(true);
-            btnDelSenStaions.setToolTipText(null);
+        btnDelSenStaions.setEnabled(true);
+        btnDelSenStaions.setToolTipText(null);
        
     }
     
@@ -212,12 +215,12 @@ public class SensorStationGUI extends javax.swing.JFrame {
         jListSensorstations.clearSelection();
         lblNoStaionsQResultsTxt.setVisible(false);
         selectedStations = null;
-        refreshMembersJList(null);
+        refreshStationsJList(null);
         btnEditSenStations.setEnabled(false);
         btnDelSenStaions.setEnabled(false);
     }
    
-    private void serializeMembersSet(String fLoc){
+    private void serializeStationsSet(String fLoc){
         try
         {
             FileOutputStream fileOut = 
@@ -239,11 +242,11 @@ public class SensorStationGUI extends javax.swing.JFrame {
             e.printStackTrace();
         }
         // completely refresh data, if its been saved without quitting
-        deserializeMembersSet(fLoc);
+        deserializeStationsSet(fLoc);
     }
 
     
-    private void deserializeMembersSet(String fLoc)
+    private void deserializeStationsSet(String fLoc)
     {
         //failsafe
         theStations.removeAllElements();
@@ -326,6 +329,9 @@ public class SensorStationGUI extends javax.swing.JFrame {
         lblStationSearchInputTxt = new javax.swing.JLabel();
         jComboStationFilter = new javax.swing.JComboBox();
         jTxtStationSearchInput = new javax.swing.JTextField();
+        jDialogViewStations = new javax.swing.JDialog();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPanelContainer = new javax.swing.JPanel();
         btnAddSenStaions = new javax.swing.JButton();
         btnEditSenStations = new javax.swing.JButton();
@@ -646,6 +652,33 @@ public class SensorStationGUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18))
         );
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Sensor Station", "Location", "No of Active Sensors"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        javax.swing.GroupLayout jDialogViewStationsLayout = new javax.swing.GroupLayout(jDialogViewStations.getContentPane());
+        jDialogViewStations.getContentPane().setLayout(jDialogViewStationsLayout);
+        jDialogViewStationsLayout.setHorizontalGroup(
+            jDialogViewStationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialogViewStationsLayout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(63, Short.MAX_VALUE))
+        );
+        jDialogViewStationsLayout.setVerticalGroup(
+            jDialogViewStationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialogViewStationsLayout.createSequentialGroup()
+                .addContainerGap(156, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(106, 106, 106))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SmartCity Application");
         setLocationByPlatform(true);
@@ -887,17 +920,17 @@ public class SensorStationGUI extends javax.swing.JFrame {
         double longtitude;
         
         StationName = jTxtStationNameInput.getText();
+        jTxtNASensors.setText("0");
         NoActiveSnesors = Integer.parseInt(jTxtNASensors.getText());
         lattitude = Double.parseDouble(jTxtLattitude.getText());
         longtitude = Double.parseDouble(jTxtLongtitude.getText());
         if(!btnTxt.isEmpty() && !StationName.trim().isEmpty()){
             if (btnTxt.equals("Add")){ // btn txt == add
-                SensorStations station = new SensorStations(theStations.lastElement().getStationID()+1,StationName,NoActiveSnesors,lattitude,longtitude);
+                SensorStations station = new SensorStations(theStations.lastElement().getStationID()+1,StationName,lattitude,longtitude);
                 theStations.add(station);
             }else if (btnTxt.equals("Save")){ // btn txt == edit
                 selectedStations.setDestination(StationName);
             }else{ // btn txt == delete
-                // Need to stop this happening if user has books on loan
                theStations.removeSensorStations(selectedStations);
             }
         
@@ -905,7 +938,7 @@ public class SensorStationGUI extends javax.swing.JFrame {
 
             jDialogCRUDMemForm.setVisible(false);
             clearSelectedStation();
-            refreshMembersJList(null);
+            refreshStationsJList(null);
         }
     }//GEN-LAST:event_btnStationFormApplyActionPerformed
 
@@ -993,13 +1026,16 @@ public class SensorStationGUI extends javax.swing.JFrame {
     private javax.swing.JDialog jDialogDelConf;
     private javax.swing.JDialog jDialogQuitConf;
     private javax.swing.JDialog jDialogStationSearch;
+    private javax.swing.JDialog jDialogViewStations;
     private javax.swing.JList jListSensorstations;
     private javax.swing.JPanel jPanelContainer;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparatorDelConfHeader;
     private javax.swing.JSeparator jSeparatorQuitConfHeader;
     private javax.swing.JSeparator jSeparatorStationFormHeader;
     private javax.swing.JSeparator jSeparatorStationSearchHeader;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextPane jTxtLattitude;
     private javax.swing.JTextPane jTxtLongtitude;
     private javax.swing.JTextPane jTxtNASensors;

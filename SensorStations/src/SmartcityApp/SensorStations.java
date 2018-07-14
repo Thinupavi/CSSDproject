@@ -13,6 +13,7 @@ public class SensorStations implements Serializable,Subject
     private double Longitude;
    // public Mothership observer;
     private ArrayList allsensormonitors;
+//    private SetOfSensors currentsensors= new SetOfSensors();
     private static int StationCount = 0;
     private ArrayList<Observer> observers = new ArrayList<Observer>();
 
@@ -24,6 +25,25 @@ public class SensorStations implements Serializable,Subject
         this.Longitude = Longitude;
     }
 
+    public SensorStations(int StationID, String Destination, double Lattitude, double Longitude) {
+        this.StationID = StationID;
+        this.Destination = Destination;
+        this.Lattitude = Lattitude;
+        this.Longitude = Longitude;
+    }
+    
+//    public void Addsensorsmonitor(Sensor sensors)
+//    {
+//        sensors.setSenors(this);
+//        currentsensors.add(sensors);
+//    }
+//    
+//    public void RemovesensorMontitor(Sensor sensors)
+//    {
+//        currentsensors.removeSensor(sensors);
+//        sensors.setSenors(null);
+//    }
+//    
     public ArrayList<Observer> getObservers() {
         return observers;
     }
@@ -72,7 +92,7 @@ public class SensorStations implements Serializable,Subject
         return Longitude;
     }
 
-    public void setLongitude(Float Longitude) {
+    public void setLongitude(double Longitude) {
         this.Longitude = Longitude;
     }
 
@@ -101,9 +121,7 @@ public class SensorStations implements Serializable,Subject
            }       
     }
 
-//    public Object getUpdate(Observer mothership) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
+
    
 }
 
