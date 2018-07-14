@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package smartcityapp;
+package SmartcityApp;
+
+import SmartcityApp.Subject;
 
 /**
  *
@@ -12,7 +14,7 @@ package smartcityapp;
 public interface Observer {
     
     //method to update the observer, used by subject
-    public void update (String Sensors,Float MoofSensors,Float Lattitude,Float Longitude);
+    public void update (int Sensors,String Stationname,int NoofSensors,double Lattitude,double Longitude);
     
     //attach with subject to observe
     public void setSubject(Subject sub);

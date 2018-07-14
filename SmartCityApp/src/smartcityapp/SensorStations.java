@@ -18,8 +18,8 @@ public class SensorStations implements Subject,Serializable {
     private ArrayList observers;
     private ArrayList allsensormonitors;
     private String StationID;
-    private String Address;
-    private Float NoofSensors;
+    private String Destination;
+    private Float NoofActiveSensors;
     private Float Lattitude;
     private Float Longitude;
 

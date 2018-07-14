@@ -17,12 +17,25 @@ public class ViewSensorStation extends javax.swing.JFrame {
     /**
      * Creates new form ViewSensorStation
      */
+    
+    
+    private SensorStations selectedSS = null;
+    private Mothership theSensorStations = new Mothership();
+    
     public ViewSensorStation() {
         initComponents();
         AddSensorStations.deserializeObj();
         populateTable();
     }
-    
+    private void resetData(){
+       // SensorStations Station1 = new SensorStations("S1","Anthony",20,12,13);
+       // SensorStations Station2 = new SensorStations(1,"Daryl Dixon", null);
+       
+
+      //  theSensorStations.addSensorStations(Station1);
+      //  theSensorStations.addSensorStations(Station2);
+       
+    }
      public void populateTable()
     {
         try{

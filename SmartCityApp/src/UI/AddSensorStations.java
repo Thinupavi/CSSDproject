@@ -209,9 +209,9 @@ public class AddSensorStations extends javax.swing.JFrame {
 
                 String StationID = SID.getText();
                 String SensorStations = SStations.getText();
-                float noofSensors=Integer.parseInt(NoofSensors.getText());
-                float lattitude = Integer.parseInt(Latitude.getText());
-                float longtitude = Integer.parseInt(Longtitude.getText());
+                float noofSensors=Float.parseFloat(NoofSensors.getText());
+                float lattitude = Float.parseFloat(Latitude.getText());
+                float longtitude = Float.parseFloat(Longtitude.getText());
                 
                 
                 
