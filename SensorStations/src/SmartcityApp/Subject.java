@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package smartcityapp;
+package SmartcityApp;
 
 import java.util.Observer;
 
@@ -14,5 +14,7 @@ import java.util.Observer;
 public interface Subject {
     public void registerObserver(Observer o);
     public void removeObserver(Observer o);
-    public void notifyObservers();   
+    public void notifyObservers(); 
+    
+    //public Object getUpdate(Observer o);
 }
