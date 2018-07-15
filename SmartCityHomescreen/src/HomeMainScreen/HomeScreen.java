@@ -3,15 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package smartcityhomescreen;
+package HomeMainScreen;
+import SmartcityApp.SensorStationGUI;
+import SmartcityApp.SensorStations;
+import SmartcityApp.SetOfSensorStations;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -108,10 +116,20 @@ public class HomeScreen extends javax.swing.JFrame {
         JXMapViewer mapViewer = new JXMapViewer();
         mapViewer.setTileFactory(tileFactory);
 
-        GeoPosition Mapcenter = new GeoPosition(6.901248,80.5890193);
 
+        // Create waypoints from the geo-positions
+        SensorStationGUI stationdata = new SensorStationGUI();
+        SetOfSensorStations stations = stationdata.senddata();
+        Vector datafromfile = stations;
+        List<SensorStations> list =(List<SensorStations>) datafromfile.stream().collect(Collectors.toList());
+        List<SwingWaypoint> listo = new ArrayList<SwingWaypoint>();
+        for(int i = 0; i < list.size(); i++) {
+            listo.add(new SwingWaypoint(list.get(i).getDestination(), new GeoPosition(list.get(i).getLongitude(),list.get(i).getLattitude()),list.get(i).getNoofActiveSensors()));
+        }
+        
+        GeoPosition Mapcenter = new GeoPosition(list.get(0).getLongitude(),list.get(0).getLattitude());
         // Set the focus
-        mapViewer.setZoom(10);
+        mapViewer.setZoom(7);
         mapViewer.setAddressLocation(Mapcenter);
 
         // Add interactions
@@ -122,14 +140,8 @@ public class HomeScreen extends javax.swing.JFrame {
         mapViewer.addMouseWheelListener(new ZoomMouseWheelListenerCenter(mapViewer));
         mapViewer.addKeyListener(new PanKeyListener(mapViewer));
 
-        //coordinates
-        GeoPosition Colombo5 = new GeoPosition(6.901248,80.5890193);
-        GeoPosition St2 = new GeoPosition(6.886696,79.8833113);
-        // Create waypoints from the geo-positions
-        Set<SwingWaypoint> waypoints = new HashSet<SwingWaypoint>(Arrays.asList(
-            new SwingWaypoint("Colombo", Colombo5),
-            new SwingWaypoint("St2", St2)
-        ));
+
+        Set<SwingWaypoint> waypoints = new HashSet<SwingWaypoint>(listo);
 
         // Set the overlay painter
         WaypointPainter<SwingWaypoint> swingWaypointPainter = new SwingWaypointOverlayPainter();

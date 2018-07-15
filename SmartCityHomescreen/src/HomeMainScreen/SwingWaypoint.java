@@ -1,4 +1,4 @@
-package smartcityhomescreen;
+package HomeMainScreen;
 
 import org.jxmapviewer.viewer.DefaultWaypoint;
 import org.jxmapviewer.viewer.GeoPosition;
@@ -19,16 +19,14 @@ public class SwingWaypoint extends DefaultWaypoint {
     private final JButton button;
     private final String text;
     private final GeoPosition coord;
+    private final int activesensonsor;
 
-    public SwingWaypoint(String text, GeoPosition coord) throws IOException {
+    public SwingWaypoint(String text, GeoPosition coord,int activesensonsor) throws IOException {
         super(coord);
         this.text = text;
         this.coord = coord;
+        this.activesensonsor = activesensonsor;
         button = new JButton();
-        //button.setSize(24, 24);
-        //button.setText("Add Sensor Station");
-        //button.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        //button.setPreferredSize(new Dimension(24, 24));
         Image img = ImageIO.read(getClass().getResource("../marker.png"));
         button.setIcon(new ImageIcon(img));
         button.setOpaque(false);
@@ -49,7 +47,7 @@ public class SwingWaypoint extends DefaultWaypoint {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            JOptionPane.showMessageDialog(button, "Station Name : " + text+"\n Latitude : "+coord.getLatitude()+" \n Longitude : "+coord.getLongitude());
+            JOptionPane.showMessageDialog(button, "Station Name : " + text+"\n Latitude : "+coord.getLatitude()+" \n Longitude : "+coord.getLongitude()+"\n Active Sensors :"+activesensonsor,"Station Details",JOptionPane.PLAIN_MESSAGE);
         }
 
         @Override

@@ -1,4 +1,4 @@
-package smartcityhomescreen;
+package HomeMainScreen;
 
 import org.jxmapviewer.JXMapViewer;
 import org.jxmapviewer.viewer.WaypointPainter;
