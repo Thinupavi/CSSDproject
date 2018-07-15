@@ -6,11 +6,15 @@
 package smartcityhomescreen;
 import java.awt.Dimension;
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
@@ -29,16 +33,15 @@ import org.jxmapviewer.viewer.WaypointPainter;
  *
  * @author ASUS
  */
-public class Testomapo extends javax.swing.JFrame {
+public class HomeScreen extends javax.swing.JFrame {
+
+    private JLabel mapholder;
 
     /**
      * Creates new form Home screen
      */
-    public Testomapo() {
-        
+    public HomeScreen() throws IOException {
         initComponents();
-        
-        
     }
 
     /**
@@ -48,20 +51,13 @@ public class Testomapo extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-    private void initComponents() {
+    private void initComponents() throws IOException {
 
         componentholder = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         addsensor = new javax.swing.JButton();
         removesensor = new javax.swing.JButton();
         viewsensor = new javax.swing.JButton();
-        selectedpanel = new javax.swing.JPanel();
-        heading = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        stname = new javax.swing.JLabel();
-        actsensors = new javax.swing.JLabel();
-        lat = new javax.swing.JLabel();
-        longi = new javax.swing.JLabel();
         mapcont = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -98,56 +94,6 @@ public class Testomapo extends javax.swing.JFrame {
             }
         });
 
-        selectedpanel.setBackground(new java.awt.Color(248, 248, 248));
-        selectedpanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        heading.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        heading.setText("Selected Sensor Station");
-
-        stname.setText("Station Name :");
-
-        actsensors.setText("No. of active sensors :");
-
-        lat.setText("Latitude :");
-
-        longi.setText("Longitude :");
-
-        javax.swing.GroupLayout selectedpanelLayout = new javax.swing.GroupLayout(selectedpanel);
-        selectedpanel.setLayout(selectedpanelLayout);
-        selectedpanelLayout.setHorizontalGroup(
-            selectedpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(selectedpanelLayout.createSequentialGroup()
-                .addContainerGap(89, Short.MAX_VALUE)
-                .addComponent(heading)
-                .addGap(82, 82, 82))
-            .addComponent(jSeparator1)
-            .addGroup(selectedpanelLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(selectedpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(longi)
-                    .addComponent(lat)
-                    .addComponent(actsensors)
-                    .addComponent(stname))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        selectedpanelLayout.setVerticalGroup(
-            selectedpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(selectedpanelLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(heading)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(stname)
-                .addGap(35, 35, 35)
-                .addComponent(actsensors)
-                .addGap(44, 44, 44)
-                .addComponent(lat)
-                .addGap(31, 31, 31)
-                .addComponent(longi)
-                .addContainerGap(185, Short.MAX_VALUE))
-        );
-
 
         // Create a TileFactoryInfo for OSM
         TileFactoryInfo info = new OSMTileFactoryInfo();
@@ -178,9 +124,11 @@ public class Testomapo extends javax.swing.JFrame {
 
         //coordinates
         GeoPosition Colombo5 = new GeoPosition(6.901248,80.5890193);
+        GeoPosition St2 = new GeoPosition(6.886696,79.8833113);
         // Create waypoints from the geo-positions
         Set<SwingWaypoint> waypoints = new HashSet<SwingWaypoint>(Arrays.asList(
-            new SwingWaypoint("Colombo", Colombo5)        
+            new SwingWaypoint("Colombo", Colombo5),
+            new SwingWaypoint("St2", St2)
         ));
 
         // Set the overlay painter
@@ -190,7 +138,6 @@ public class Testomapo extends javax.swing.JFrame {
 
         // Add the JButtons to the map viewer
         for (SwingWaypoint w : waypoints) {
-            System.out.print(w.toString());
             mapViewer.add(w.getButton());
         }
         /*JFrame frame = new JFrame("JXMapviewer2 Example 7");
@@ -201,49 +148,46 @@ public class Testomapo extends javax.swing.JFrame {
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);*/
-        mapViewer.setPreferredSize(new Dimension(740, 450));
+        mapViewer.setPreferredSize(new Dimension(1100, 450));
         mapcont.add(mapViewer);
-        mapcont.setPreferredSize(new Dimension(740, 450));
+        mapcont.setPreferredSize(new Dimension(1100, 450));
 
         javax.swing.GroupLayout componentholderLayout = new javax.swing.GroupLayout(componentholder);
         componentholder.setLayout(componentholderLayout);
         componentholderLayout.setHorizontalGroup(
             componentholderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(componentholderLayout.createSequentialGroup()
-                .addGap(120, 120, 120)
+                .addGap(131, 131, 131)
                 .addComponent(viewsensor, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(152, 152, 152)
+                .addGap(156, 156, 156)
                 .addComponent(addsensor, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(removesensor, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(149, 149, 149))
+                .addGap(132, 132, 132))
             .addGroup(componentholderLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addGap(26, 26, 26)
-                .addComponent(selectedpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(10, 10, 10)
                 .addComponent(mapcont, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         componentholderLayout.setVerticalGroup(
             componentholderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(componentholderLayout.createSequentialGroup()
-                .addGap(59, 59, 59)
+                .addGap(49, 49, 49)
                 .addGroup(componentholderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(viewsensor, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(removesensor, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addsensor, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(removesensor, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(viewsensor, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
                 .addGroup(componentholderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(componentholderLayout.createSequentialGroup()
                         .addGap(206, 206, 206)
                         .addComponent(jLabel1))
                     .addGroup(componentholderLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addGroup(componentholderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(selectedpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(mapcont, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(55, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(mapcont, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -289,20 +233,28 @@ public class Testomapo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Testomapo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Testomapo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Testomapo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Testomapo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Testomapo().setVisible(true);
+                try {
+                    HomeScreen screen = new HomeScreen();
+                    screen.setTitle("Home Screen");
+                    screen.setSize(1175,642);
+                    screen.setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(HomeScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         

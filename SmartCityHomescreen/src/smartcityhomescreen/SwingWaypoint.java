@@ -46,9 +46,10 @@ public class SwingWaypoint extends DefaultWaypoint {
 
     private class SwingWaypointMouseListener implements MouseListener {
 
+
         @Override
         public void mouseClicked(MouseEvent e) {
-            JOptionPane.showMessageDialog(button, "You clicked on " + text+ coord.getLatitude());
+            JOptionPane.showMessageDialog(button, "Station Name : " + text+"\n Latitude : "+coord.getLatitude()+" \n Longitude : "+coord.getLongitude());
         }
 
         @Override
