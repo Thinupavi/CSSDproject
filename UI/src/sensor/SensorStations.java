@@ -158,6 +158,8 @@ public class SensorStations implements Serializable,Subject
 //               observer.update (this);
            }       
     }
-   
+       public void returnAllBOL(){ // return sensors add to station for serialization
+        currentsensors.removeAllElements();
+    }
 }
 

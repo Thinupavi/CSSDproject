@@ -1,5 +1,6 @@
 package sensor;
 
+
 import java.awt.Color;
 import static java.awt.Dialog.ModalityType.APPLICATION_MODAL;
 import java.io.FileInputStream;
@@ -14,6 +15,16 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import sensor.Sensor;
+import sensor.Sensor;
+import sensor.SensorGUI;
+import sensor.SensorGUI;
+import sensor.SensorStations;
+import sensor.SensorStations;
+import sensor.SetOfSensorStations;
+import sensor.SetOfSensorStations;
+import sensor.SetOfSensors;
+import sensor.SetOfSensors;
 
 public class SensorStationGUI extends javax.swing.JFrame {
 
@@ -42,7 +53,7 @@ public class SensorStationGUI extends javax.swing.JFrame {
             
           resetData();
         }else{
-            deserializeStationsSet("Files/SensorStation.ser");
+              deserializeStationsSet("Files/SensorStation.ser");
 //            deserializeSensormonitorSet("Files/sensors.ser");
         }
         
@@ -529,12 +540,10 @@ public class SensorStationGUI extends javax.swing.JFrame {
         lblSensorsJlistHead = new javax.swing.JLabel();
         btnResetSenstaionsFilter = new javax.swing.JButton();
         btnviewSenStaions = new javax.swing.JButton();
-        btnQuit = new javax.swing.JButton();
         btnSaveChanges = new javax.swing.JButton();
         lblChangesSaved = new javax.swing.JLabel();
         lblMainStationCnt = new javax.swing.JLabel();
         lblMainSensorStationsCntTxt = new javax.swing.JLabel();
-        btnQuit2 = new javax.swing.JButton();
 
         jDialogQuitConf.setLocationByPlatform(true);
         jDialogQuitConf.setMinimumSize(new java.awt.Dimension(503, 169));
@@ -1125,6 +1134,7 @@ public class SensorStationGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SmartCity Application");
         setLocationByPlatform(true);
+        setPreferredSize(new java.awt.Dimension(1177, 645));
         setResizable(false);
 
         btnAddSenStaions.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -1233,7 +1243,7 @@ public class SensorStationGUI extends javax.swing.JFrame {
                         .addComponent(btnQueryStations, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(63, 63, 63)
                         .addComponent(lblNoStaionsQResultsTxt)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(90, 191, Short.MAX_VALUE))
         );
         jPanelContainerLayout.setVerticalGroup(
             jPanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1257,16 +1267,6 @@ public class SensorStationGUI extends javax.swing.JFrame {
                 .addGap(17, 17, 17))
         );
 
-        btnQuit.setBackground(new java.awt.Color(255, 102, 102));
-        btnQuit.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnQuit.setText("Quit");
-        btnQuit.setActionCommand("queryMembersNo");
-        btnQuit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnQuitActionPerformed(evt);
-            }
-        });
-
         btnSaveChanges.setBackground(new java.awt.Color(153, 255, 153));
         btnSaveChanges.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnSaveChanges.setText("Save Changes");
@@ -1284,36 +1284,22 @@ public class SensorStationGUI extends javax.swing.JFrame {
 
         lblMainSensorStationsCntTxt.setText("Sensor Station Count:");
 
-        btnQuit2.setBackground(new java.awt.Color(0, 51, 255));
-        btnQuit2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnQuit2.setText("Back");
-        btnQuit2.setActionCommand("queryMembersNo");
-        btnQuit2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnQuit2ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanelContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(49, 49, 49))
+                .addGap(265, 265, 265))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(86, 86, 86)
                 .addComponent(lblMainSensorStationsCntTxt)
                 .addGap(18, 18, 18)
                 .addComponent(lblMainStationCnt)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 611, Short.MAX_VALUE)
                 .addComponent(lblChangesSaved)
                 .addGap(18, 18, 18)
                 .addComponent(btnSaveChanges)
-                .addGap(18, 18, 18)
-                .addComponent(btnQuit, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnQuit2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -1322,12 +1308,10 @@ public class SensorStationGUI extends javax.swing.JFrame {
                 .addComponent(jPanelContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnQuit, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSaveChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblChangesSaved)
                     .addComponent(lblMainStationCnt)
-                    .addComponent(lblMainSensorStationsCntTxt)
-                    .addComponent(btnQuit2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblMainSensorStationsCntTxt))
                 .addGap(52, 52, 52))
         );
 
@@ -1340,12 +1324,6 @@ public class SensorStationGUI extends javax.swing.JFrame {
         saveAll();
         
     }//GEN-LAST:event_btnSaveChangesActionPerformed
-
-    private void btnQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitActionPerformed
-        // TODO add your handling code here:
-        
-        showQuitConfGUI();
-    }//GEN-LAST:event_btnQuitActionPerformed
 
     private void btnQuitConfJQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitConfJQActionPerformed
         // TODO add your handling code here:
@@ -1380,8 +1358,12 @@ public class SensorStationGUI extends javax.swing.JFrame {
         NoActiveSnesors = Integer.parseInt(jTxtNASensors.getText());
         lattitude = Double.parseDouble(jTxtLattitude.getText());
         longtitude = Double.parseDouble(jTxtLongtitude.getText());
+        boolean v= theStations.checkStationnameandId(StationName);
         if(!btnTxt.isEmpty() && !StationName.trim().isEmpty()){
             if (btnTxt.equals("Add")){ // btn txt == add
+            if(v == true){
+              JOptionPane.showMessageDialog(null, "Station Name is already used!");   
+            }
                 SensorStations station = new SensorStations(theStations.lastElement().getStationID()+1,StationName,lattitude,longtitude);
                 theStations.add(station);
             }else if (btnTxt.equals("Save")){ // btn txt == edit
@@ -1470,11 +1452,14 @@ public class SensorStationGUI extends javax.swing.JFrame {
                 
                 int memNo= Integer.parseInt(jTable1.getModel().getValueAt(row, 0).toString());
                 Object [] rowData= new Object[4];
+
                 DefaultTableModel model= (DefaultTableModel) jTable3.getModel();
                 model.setRowCount(0);
                 SensorStations member= theStations.getSensorStations(memNo);
                 SetOfSensors temp=member.getSmonitors();
-                
+
+//                deserializeStationsSet("Files/SensorStation.ser");
+//                SensorGUI.deserializeSensorsSet("Files/sensor.ser");
                 for(int i=0;i<temp.size();i++){
                     
                     rowData[0]=temp.get(i).getSensormontior().getDestination();
@@ -1522,10 +1507,8 @@ public class SensorStationGUI extends javax.swing.JFrame {
 
                 selectedSensor =SensorGUI.theSensors.getSensorsFromSearch(SensormonitorNo).firstElement();
                 selectedStations=theStations.getSensorStationsFromSearch(SStationnNo).firstElement();
-//                
-//                
-//                
-//                //finding the selected member object's index from the arraylist
+                
+                //finding the selected member object's index from the arraylist
                 for(int i=0;i<theStations.size();i++){
                     
                     
@@ -1543,18 +1526,15 @@ public class SensorStationGUI extends javax.swing.JFrame {
                     if(selectedSensor==SensorGUI.theSensors.get(i)){
                         
                         //checking if the book is already been borrowed
-                       
-                            
-                            
-                            
+                                                 
                     if(SensorSIndex!=-1){
                                 //checking whether the member is eligible
                                 
                                 boolean b=theStations.get(SensorSIndex).Addsensorsmonitor(selectedSensor);
-                              
                                 if(b){
                                     SensorGUI.theSensors.get(i).setSensormontior(theStations.get(SensorSIndex));
-
+                                    
+                                    
                                     JOptionPane.showMessageDialog(this, "Successfully Added", "Success", JOptionPane.INFORMATION_MESSAGE);
                                     break;
                                 }
@@ -1569,13 +1549,12 @@ public class SensorStationGUI extends javax.swing.JFrame {
                     }
                     else{
                         JOptionPane.showMessageDialog(this, "Sensor Monitor is not found", "Invaild sensor Monitot", JOptionPane.WARNING_MESSAGE);
-
-                    }
+                        }
                 }
                 
             }
             else{
-                JOptionPane.showMessageDialog(this, "Please select entries from Books table and Member table", "Select a Book and member", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Please select entries from Station table and Sensor Monitor table", "Select a Station and Senosr Monitor", JOptionPane.WARNING_MESSAGE);
                         
             }
 //            
@@ -1659,17 +1638,17 @@ public class SensorStationGUI extends javax.swing.JFrame {
         SensorGUI.serializeSensorsSet("Files/sensor.ser");
     }//GEN-LAST:event_jDialogViewStationsWindowClosing
 
-    private void btnQuit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuit2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnQuit2ActionPerformed
-
     private void btnQuit3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuit3ActionPerformed
         // TODO add your handling code here:
         
     }//GEN-LAST:event_btnQuit3ActionPerformed
 
+    
+  
     /**
     * @param args the command line arguments
+    
+    
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1688,9 +1667,7 @@ public class SensorStationGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnQueryStations1;
     private javax.swing.JButton btnQueryStations2;
     private javax.swing.JButton btnQueryStations3;
-    private javax.swing.JButton btnQuit;
     private javax.swing.JButton btnQuit1;
-    private javax.swing.JButton btnQuit2;
     private javax.swing.JButton btnQuit3;
     private javax.swing.JButton btnQuitConfJQ;
     private javax.swing.JButton btnQuitConfNo;

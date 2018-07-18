@@ -78,4 +78,14 @@ public class SetOfSensorStations extends Vector<SensorStations> implements Seria
        
     }
     
+    public boolean checkStationnameandId(String stationname){
+        boolean result = false;
+        for(int x=0;x<super.size();x++){
+            if(super.get(x).getDestination().contains(stationname)){
+                result =true;
+            }
+        }
+        return result;
+    }
+    
 }
